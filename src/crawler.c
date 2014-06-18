@@ -990,7 +990,7 @@ void param_trylist_start(struct pivot_desc* pv) {
 
     for (c=0;c<pv->child_cnt;c++)
       if (!((is_c_sens(pv) ? strcmp : strcasecmp)((char*)pv->try_list[i],
-            (char*)pv->child[c]->name))) continue;
+            (char*)pv->child[c]->name))) break;
 
     /* Matching current node? Ditto. */
 
