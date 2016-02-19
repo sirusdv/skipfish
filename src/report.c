@@ -555,6 +555,15 @@ static void save_req_res(struct http_request* req, struct http_response* res, u8
     fprintf(f, "var res = {'data':'%s'}", js_escape(rs, 0));
     fclose(f);
 
+    f = fopen("response.dat.bin", "wb");
+    if(!f) PFATAL("Cannot create response.dat.bin");
+
+    i = fwrite(res->payload, 1, res->pay_len, f);
+    if(i != res->pay_len) WARN("Could not flush whole binary was supposed to write %u but wrote %u\n", res->pay_len, i);
+
+    fflush(f);
+    fclose(f);
+
     ck_free(rs);
 
   }
